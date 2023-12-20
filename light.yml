@@ -441,7 +441,7 @@ action:
               - service: light.turn_on
                 data:
                   brightness: '{{ [ [state_attr(light,"brightness")-step_short, min_brightness] | max, max_brightness] | min }}'
-                  transition: 0.25
+                  transition: 1
                   entity_id: !input light
       - conditions: '{{ action == brightness_up_repeat }}'
         sequence:
