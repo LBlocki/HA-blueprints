@@ -421,13 +421,13 @@ action:
                       brightness: '{{ min_brightness }}'
                       transition: '{{ light_transition / 1000 }}'
                       entity_id: !input light
+            # else the light is on, hence increase its brightness
             default:
               - service: light.turn_on
                 data:
-                  entity_id: !input 'light'
+                  brightness: '{{ [ [state_attr(light,"brightness")+step_short, min_brightness] | max, max_brightness] | min }}'
                   transition: 1
-                  brightness_step: 25
-
+                  entity_id: !input light
       - conditions: '{{ action == brightness_down and states(light) == "on" }}'
         sequence:
           - choose:
@@ -437,17 +437,10 @@ action:
                     data:
                       transition: '{{ light_transition / 1000 }}'
                       entity_id: !input light
-              - conditions: '{{ (cur_brightness - 25) >= min_brightness }}'
-                sequence:
-                  - service: light.turn_on
-                    data:
-                      entity_id: !input 'light'
-                      transition: 1
-                      brightness_step: -25
             default:
               - service: light.turn_on
                 data:
-                  brightness: !input 'min_brightness'
+                  brightness: '{{ [ [state_attr(light,"brightness")-step_short, min_brightness] | max, max_brightness] | min }}'
                   transition: 1
                   entity_id: !input light
       - conditions: '{{ action == brightness_up_repeat }}'
@@ -479,8 +472,8 @@ action:
               sequence:
                 - service: light.turn_on
                   data:
+                    brightness: '{{ [ [state_attr(light,"brightness")+step_long, min_brightness] | max, max_brightness] | min }}'
                     transition: 1
-                    brightness_step: 50
                     entity_id: !input light
                 - delay:
                     milliseconds: 50
@@ -504,18 +497,11 @@ action:
                                     entity_id: !input light
                                 - delay:
                                     milliseconds: !input light_transition
-                            - conditions: '{{ (cur_brightness - 50) >= min_brightness }}'
-                              sequence:
-                                - service: light.turn_on
-                                  data:
-                                    entity_id: !input 'light'
-                                    transition: 1
-                                    brightness_step: -50
                           # else lower the light's brightness
                           default:
                             - service: light.turn_on
                               data:
-                                brightness: !input 'min_brightness'
+                                brightness: '{{ [ [state_attr(light,"brightness")-step_long, min_brightness] | max, max_brightness] | min }}'
                                 transition: 1
                                 entity_id: !input light
                             - delay:
@@ -528,7 +514,7 @@ action:
                     # lower the light's brightness. since smooth power off is disabled, never let the brightness move below the user-provided minimum
                     - service: light.turn_on
                       data:
-                        brightness: !input 'min_brightness'
+                        brightness: '{{ [ [state_attr(light,"brightness")-step_long, min_brightness] | max, max_brightness] | min }}'
                         transition: 1
                         entity_id: !input light
                     - delay:
