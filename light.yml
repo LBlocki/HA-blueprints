@@ -252,22 +252,22 @@ variables:
       turn_on: button_on_short
       color_up_repeat: button_on_long
       turn_off: button_off_short
-      color_down_repeat: button_off_long
-      brightness_up: button_up_short
-      brightness_up_repeat: button_up_long
-      brightness_down: button_down_short
-      brightness_down_repeat: button_down_long
+#      color_down_repeat: button_off_long
+#      brightness_up: button_up_short
+#      brightness_up_repeat: button_up_long
+#      brightness_down: button_down_short
+#      brightness_down_repeat: button_down_long
     Philips 8718699693985 Hue Smart Button:
       toggle: button_short
     Philips 929002398602 Hue Dimmer switch v2:
       turn_on: button_on_short
-      color_up_repeat: button_on_long
-      turn_off: button_off_short
-      color_down_repeat: button_off_long
-      brightness_up: button_up_short
-      brightness_up_repeat: button_up_long
-      brightness_down: button_down_short
-      brightness_down_repeat: button_down_long
+#      color_up_repeat: button_on_long
+#      turn_off: button_off_short
+#      color_down_repeat: button_off_long
+#      brightness_up: button_up_short
+#      brightness_up_repeat: button_up_long
+#      brightness_down: button_down_short
+#      brightness_down_repeat: button_down_long
     SONOFF SNZB-01 Wireless Switch:
       toggle: button_short
       color_up: button_double
