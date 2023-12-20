@@ -505,7 +505,7 @@ action:
                                 transition: 0.25
                                 entity_id: !input light
                             - delay:
-                                milliseconds: 250
+                                milliseconds: 25
             default:
               - repeat:
                   # continue lowering brightness until the light turns off
