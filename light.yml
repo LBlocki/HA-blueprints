@@ -502,10 +502,10 @@ action:
                             - service: light.turn_on
                               data:
                                 brightness: '{{ [ [state_attr(light,"brightness")-step_long, min_brightness] | max, max_brightness] | min }}'
-                                transition: 1
+                                transition: 0.25
                                 entity_id: !input light
                             - delay:
-                                milliseconds: 50
+                                milliseconds: 250
             default:
               - repeat:
                   # continue lowering brightness until the light turns off
