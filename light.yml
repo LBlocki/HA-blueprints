@@ -379,13 +379,31 @@ action:
       - conditions: '{{ action == turn_on }}'
         sequence:
           - choose:
-              - conditions: '{{ force_brightness }}'
+              - conditions: '{{ force_brightness and states(light) == "off" }}'
                 sequence:
                   - service: light.turn_on
                     entity_id: !input light
                     data:
                       brightness: !input on_brightness
                       transition: '{{ light_transition / 1000 }}'
+              - conditions: '{{ states(light) == "off" }}'
+                sequence:
+                  - service: light.turn_on
+                    entity_id: !input light
+                    data:
+                      brightness: !input on_brightness
+                      transition: '{{ light_transition / 1000 }}'
+                  - delay:
+                    milliseconds: !input light_transition
+              - conditions: '{{ states(light) == "on" }}'
+                sequence:
+                  - service: light.turn_off
+                    entity_id: !input light
+                    data:
+                      transition: '{{ light_transition / 1000 }}'
+                      entity_id: !input light
+                  - delay:
+                    milliseconds: !input light_transition
             default:
               - service: light.turn_on
                 entity_id: !input light
