@@ -67,6 +67,12 @@ blueprint:
       selector:
         entity:
           domain: light
+    blinds:
+      name: Blinds
+      description: Blinds for a room controlled with this automation.
+      selector:
+        entity:
+          domain: blinds
     light_color_mode:
       name: (Optional) Light color mode
       description: Specify how the controller will set the light color. Choose "Color Temperature" and "Hue - Saturation" depending on the features supported by your light. If you are not sure you can select "Auto". "None" will disable color control features.
@@ -420,7 +426,7 @@ action:
               - service: light.turn_on
                 data:
                   brightness: '{{ [ [state_attr(light,"brightness")+step_short, min_brightness] | max, max_brightness] | min }}'
-                  transition: 0.25
+                  transition: 1
                   entity_id: !input light
       - conditions: '{{ action == brightness_down and states(light) == "on" }}'
         sequence:
@@ -435,7 +441,7 @@ action:
               - service: light.turn_on
                 data:
                   brightness: '{{ [ [state_attr(light,"brightness")-step_short, min_brightness] | max, max_brightness] | min }}'
-                  transition: 0.25
+                  transition: 1
                   entity_id: !input light
       - conditions: '{{ action == brightness_up_repeat }}'
         sequence:
