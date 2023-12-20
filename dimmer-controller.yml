@@ -479,7 +479,7 @@ action:
         sequence:
           - choose:
               # if double press event is enabled
-              - conditions: '{{ true }}'
+              - conditions: '{{ button_on_double_press }}'
                 sequence:
                   - choose:
                       # if previous event was a short press
