@@ -381,10 +381,9 @@ action:
           - choose:
               - conditions: '{{ states(light) == "on" }}'
                 sequence:
-                  - service: light.turn_on
+                  - service: light.turn_off
                     entity_id: !input light
                     data:
-                      brightness: !input on_brightness
                       transition: '{{ light_transition / 1000 }}'
             default:
               - service: light.turn_on
