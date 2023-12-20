@@ -474,7 +474,7 @@ action:
           - choose:
               - conditions: []
                 sequence: !input action_button_on_release
-      - conditions: '{{ trigger_action | string in button_off_short }}'
+      - conditions: '{{ trigger_action | string in button_off_short or trigger_action | string in button_off_double_press }}'
         sequence:
           - choose:
               # if double press event is enabled
