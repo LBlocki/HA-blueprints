@@ -72,7 +72,7 @@ blueprint:
       description: Blinds for a room controlled with this automation.
       selector:
         entity:
-          domain: blinds
+          domain: cover
     light_color_mode:
       name: (Optional) Light color mode
       description: Specify how the controller will set the light color. Choose "Color Temperature" and "Hue - Saturation" depending on the features supported by your light. If you are not sure you can select "Auto". "None" will disable color control features.
