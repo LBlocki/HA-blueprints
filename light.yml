@@ -426,7 +426,7 @@ action:
               - service: light.turn_on
                 data:
                   brightness: '{{ [ [state_attr(light,"brightness")+step_short, min_brightness] | max, max_brightness] | min }}'
-                  transition: 0.25
+                  transition: 1
                   entity_id: !input light
       - conditions: '{{ action == brightness_down and states(light) == "on" }}'
         sequence:
@@ -441,7 +441,7 @@ action:
               - service: light.turn_on
                 data:
                   brightness: '{{ [ [state_attr(light,"brightness")-step_short, min_brightness] | max, max_brightness] | min }}'
-                  transition: 0.25
+                  transition: 1
                   entity_id: !input light
       - conditions: '{{ action == brightness_up_repeat }}'
         sequence:
@@ -473,7 +473,7 @@ action:
                 - service: light.turn_on
                   data:
                     brightness: '{{ [ [state_attr(light,"brightness")+step_long, min_brightness] | max, max_brightness] | min }}'
-                    transition: 0.75
+                    transition: 1
                     entity_id: !input light
                 - delay:
                     milliseconds: 50
@@ -502,7 +502,7 @@ action:
                             - service: light.turn_on
                               data:
                                 brightness: '{{ [ [state_attr(light,"brightness")-step_long, min_brightness] | max, max_brightness] | min }}'
-                                transition: 0.75
+                                transition: 1
                                 entity_id: !input light
                             - delay:
                                 milliseconds: 50
@@ -515,7 +515,7 @@ action:
                     - service: light.turn_on
                       data:
                         brightness: '{{ [ [state_attr(light,"brightness")-step_long, min_brightness] | max, max_brightness] | min }}'
-                        transition: 0.75
+                        transition: 1
                         entity_id: !input light
                     - delay:
                         milliseconds: 50
