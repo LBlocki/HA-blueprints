@@ -65,7 +65,7 @@ variables:
   # supported controllers and mappings
   controller_mapping:
     Philips 929002398602 Hue Dimmer switch v2:
-      open_cover: button_off_double_press
+      open_cover: button_off_double
       close_cover: button_off_long
       stop_cover_all: button_off_short
     IKEA E1524/E1810 TRÅDFRI Wireless 5-Button Remote:
