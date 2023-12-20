@@ -32,7 +32,7 @@ blueprint:
       default: ''
       selector:
         entity:
-          domain: 
+          domain:
     controller_model:
       name: (Required) Controller model
       description: The model for the controller used in this automation. Choose a value from the list of supported controllers.
@@ -67,7 +67,7 @@ variables:
     Philips 929002398602 Hue Dimmer switch v2:
       open_cover: button_off_double_press
       close_cover: button_off_long
-      stop_cover: button_off_short
+      stop_cover_all: button_off_short
     IKEA E1524/E1810 TRÅDFRI Wireless 5-Button Remote:
       open_cover: button_up_short
       close_cover: button_down_short
@@ -182,6 +182,4 @@ action:
       - conditions: '{{ action == stop_cover_all }}'
         sequence:
           - service: cover.stop_cover
-            entity_id: !input cover
-          - service: cover.stop_cover_tilt
             entity_id: !input cover
