@@ -397,12 +397,6 @@ action:
                     entity_id: !input light
                     data:
                       transition: '{{ light_transition / 1000 }}'
-      - conditions: '{{ action == turn_off }}'
-        sequence:
-          - service: light.turn_off
-            entity_id: !input light
-            data:
-              transition: '{{ light_transition / 1000 }}'
       - conditions: '{{ action == brightness_up }}'
         sequence:
           - choose:
