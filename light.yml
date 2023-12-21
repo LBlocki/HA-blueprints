@@ -252,22 +252,23 @@ variables:
       turn_on: button_on_short
       color_up_repeat: button_on_long
       turn_off: button_off_short
-#      color_down_repeat: button_off_long
-#      brightness_up: button_up_short
-#      brightness_up_repeat: button_up_long
-#      brightness_down: button_down_short
-#      brightness_down_repeat: button_down_long
+    #      color_down_repeat: button_off_long
+    #      brightness_up: button_up_short
+    #      brightness_up_repeat: button_up_long
+    #      brightness_down: button_down_short
+    #      brightness_down_repeat: button_down_long
     Philips 8718699693985 Hue Smart Button:
       toggle: button_short
     Philips 929002398602 Hue Dimmer switch v2:
       turn_on: button_on_short
-#      color_up_repeat: button_on_long
-#      turn_off: button_off_short
-#      color_down_repeat: button_off_long
-#      brightness_up: button_up_short
-#      brightness_up_repeat: button_up_long
-#      brightness_down: button_down_short
-#      brightness_down_repeat: button_down_long
+      switch_dimming: button_off_short
+    #      color_up_repeat: button_on_long
+    #      turn_off: button_off_short
+    #      color_down_repeat: button_off_long
+    #      brightness_up: button_up_short
+    #      brightness_up_repeat: button_up_long
+    #      brightness_down: button_down_short
+    #      brightness_down_repeat: button_down_long
     SONOFF SNZB-01 Wireless Switch:
       toggle: button_short
       color_up: button_double
@@ -329,6 +330,7 @@ variables:
   toggle: '{{ controller_mapping[controller_model]["toggle"] | default(None) }}'
   turn_on: '{{ controller_mapping[controller_model]["turn_on"] | default(None) }}'
   turn_off: '{{ controller_mapping[controller_model]["turn_off"] | default(None) }}'
+  switch_dimming: '{{ controller_mapping[controller_model]["switch_dimming"] | default(None) }}'
   light_color_mode: !input light_color_mode
   light: !input light
   light_transition: !input light_transition
@@ -396,7 +398,41 @@ action:
                   - service: light.turn_on
                     entity_id: !input light
                     data:
+                      brightness: '{{ max_brightness }}'
                       transition: '{{ light_transition / 1000 }}'
+      - conditions: '{{ action == switch_dimming }}'
+        sequence:
+          -choose:
+            - conditions: '{{ states(light) == "on" and state_attr(light,"brightness") <= max_brightness and state_attr(light,"brightness") > (3 * (max_brightness / 4)) }}'
+              sequence:
+                service: light.turn_on
+                data:
+                  brightness: '{{ 3 * (max_brightness / 4) }}'
+                  transition: 0.25
+                  entity_id: !input light
+            - conditions: '{{ states(light) == "on" and state_attr(light,"brightness") <= (3 * (max_brightness / 4)) and state_attr(light,"brightness") > (max_brightness / 2) }}'
+              sequence:
+                service: light.turn_on
+                data:
+                  brightness: '{{ max_brightness / 2 }}'
+                  transition: 0.25
+                  entity_id: !input light
+            - conditions: '{{ states(light) == "on" and state_attr(light,"brightness") <= (max_brightness / 2) and state_attr(light,"brightness") > (max_brightness / 4) }}'
+              sequence:
+                service: light.turn_on
+                data:
+                  brightness: '{{ max_brightness / 4 }}'
+                  transition: 0.25
+                  entity_id: !input light
+            - conditions: '{{ states(light) == "on" and state_attr(light,"brightness") <= (max_brightness / 4) }}'
+              sequence:
+                service: light.turn_on
+                data:
+                  brightness: '{{ max_brightness }}'
+                  transition: 0.25
+                  entity_id: !input light
+
+
 #      - conditions: '{{ action == brightness_up }}'
 #        sequence:
 #          - choose:
@@ -513,6 +549,9 @@ action:
 #                        entity_id: !input light
 #                    - delay:
 #                        milliseconds: 50
+
+
+
 #      - conditions: '{{ action == color_up and light_color_mode_id != "none" }}'
 #        sequence:
 #          choose:
