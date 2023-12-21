@@ -410,7 +410,7 @@ action:
                     brightness: '{{ 3 * (max_brightness / 4) }}'
                     transition: '{{ light_transition / 1000 }}'
                     entity_id: !input light
-              - conditions: '{{ states(light) == "on" and state_attr(light,"brightness") <= max_brightness and state_attr(light,"brightness") > (3 * (max_brightness / 4)) }}'
+              - conditions: '{{ states(light) == "on" and state_attr(light,"brightness") <= (3 * (max_brightness / 4)) and state_attr(light,"brightness") > (2 * (max_brightness / 4)) }}'
                 sequence:
                   service: light.turn_on
                   data:
