@@ -66,9 +66,6 @@ variables:
     Philips 929002398602 Hue Dimmer switch v2:
       open_cover: button_up_short
       close_cover: button_down_short
-      close_cover_tilt: button_left_long
-      open_cover_tilt: button_right_long
-      stop_cover_all: button_off_long
     IKEA E1524/E1810 TRÅDFRI Wireless 5-Button Remote:
       open_cover: button_off_double
       close_cover: button_down_short
@@ -164,23 +161,23 @@ action:
         sequence:
           - service: cover.close_cover
             entity_id: !input cover
-      - conditions: '{{ action == stop_cover }}'
-        sequence:
-          - service: cover.stop_cover
-            entity_id: !input cover
-      - conditions: '{{ action == open_cover_tilt }}'
-        sequence:
-          - service: cover.open_cover_tilt
-            entity_id: !input cover
-      - conditions: '{{ action == close_cover_tilt }}'
-        sequence:
-          - service: cover.close_cover_tilt
-            entity_id: !input cover
-      - conditions: '{{ action == stop_cover_tilt }}'
-        sequence:
-          - service: cover.stop_cover_tilt
-            entity_id: !input cover
-      - conditions: '{{ action == stop_cover_all }}'
-        sequence:
-          - service: cover.stop_cover
-            entity_id: !input cover
+#      - conditions: '{{ action == stop_cover }}'
+#        sequence:
+#          - service: cover.stop_cover
+#            entity_id: !input cover
+#      - conditions: '{{ action == open_cover_tilt }}'
+#        sequence:
+#          - service: cover.open_cover_tilt
+#            entity_id: !input cover
+#      - conditions: '{{ action == close_cover_tilt }}'
+#        sequence:
+#          - service: cover.close_cover_tilt
+#            entity_id: !input cover
+#      - conditions: '{{ action == stop_cover_tilt }}'
+#        sequence:
+#          - service: cover.stop_cover_tilt
+#            entity_id: !input cover
+#      - conditions: '{{ action == stop_cover_all }}'
+#        sequence:
+#          - service: cover.stop_cover
+#            entity_id: !input cover
