@@ -424,13 +424,13 @@ action:
 #                  brightness: '{{ max_brightness / 4 }}'
 #                  transition: 0.25
 #                  entity_id: !input light
-#            - conditions: '{{ states(light) == "on" and state_attr(light,"brightness") <= (max_brightness / 4) }}'
-#              sequence:
-#                service: light.turn_on
-#                data:
-#                  brightness: '{{ max_brightness }}'
-#                  transition: 0.25
-#                  entity_id: !input light
+            - conditions: '{{ states(light) == "on" and state_attr(light,"brightness") <= (max_brightness / 4) }}'
+              sequence:
+                service: light.turn_on
+                data:
+                  brightness: '{{ max_brightness }}'
+                  transition: 0.25
+                  entity_id: !input light
 
 
 #      - conditions: '{{ action == brightness_up }}'
