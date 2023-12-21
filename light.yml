@@ -403,7 +403,7 @@ action:
       - conditions: '{{ action == switch_dimming }}'
         sequence:
           - choose:
-              - conditions: '{{ states(light) == "on" }} }}'
+              - conditions: '{{ states(light) == "on" }}'
                 sequence:
                   - choose:
 
@@ -430,7 +430,7 @@ action:
                             brightness: '{{ max_brightness / 4 }}'
                             transition: '{{ light_transition / 1000 }}'
                             entity_id: !input light
-                            
+
                       - conditions: '{{ (state_attr(light,"brightness") > min_brightness) and (state_attr(light,"brightness") <= (max_brightness / 4))}}'
                         sequence:
                           service: light.turn_on
