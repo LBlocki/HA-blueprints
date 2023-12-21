@@ -398,7 +398,8 @@ action:
                   - service: light.turn_on
                     entity_id: !input light
                     data:
-                      brightness: '{{ max_brightness }}'
+                      color_temp: "{{ states('input_number.bedroom_light_temperature') | int }}"
+                      brightness: "{{ states('input_number.bedroom_light_max_brightness') | int }}"
                       transition: '{{ light_transition / 1000 }}'
       - conditions: '{{ action == switch_dimming }}'
         sequence:
