@@ -1,17 +1,15 @@
 blueprint:
   domain: automation
-  name: Philips Hue Smart Dimmer Switch and Remote
-  description: Philips Hue Smart Dimmer Switch and Remote (RWL020) using Zigbee
-    Home Automation
+  name: Philips Hue v2 Smart Dimmer Switch and Remote
+  description: Philips Hue v2 Smart Dimmer Switch and Remote (RWL022) using Zigbee Home Automation
   input:
     zha_device:
-      name: Philips Hue Smart Dimmer Switch and Remote
-      description: List of available Philips Hue Smart Dimmer Switch and Remote
-        devices
+      name: Philips Hue v2 Smart Dimmer Switch and Remote
+      description: List of available Philips Hue v2 Smart Dimmer Switch and Remote devices
       selector:
         device:
           integration: zha
-          model: RWL020
+          model: RWL022
     Power_Press:
       name: Power Press
       description: Power button pressed
@@ -204,7 +202,6 @@ blueprint:
       default: []
       selector:
         action: {}
-  source_url: https://community.home-assistant.io/t/zha-philips-hue-smart-dimmer-switch-and-remote-rwl020/353143
 mode: single
 max_exceeded: silent
 variables:
@@ -251,6 +248,7 @@ action:
         sequence: !input "Power_HoldPress"
       - conditions: '{{ command_type == "on_long_release" }}'
         sequence: !input "Power_HoldRelease"
+
       - conditions: '{{ command_type == "up_press" }}'
         sequence: !input "Up_Press"
       - conditions: '{{ command_type == "up_double_press" }}'
@@ -267,6 +265,7 @@ action:
         sequence: !input "Up_HoldPress"
       - conditions: '{{ command_type == "up_long_release" }}'
         sequence: !input "Up_HoldRelease"
+
       - conditions: '{{ command_type == "down_press" }}'
         sequence: !input "Down_Press"
       - conditions: '{{ command_type == "down_double_press" }}'
@@ -283,6 +282,7 @@ action:
         sequence: !input "Down_HoldPress"
       - conditions: '{{ command_type == "down_long_release" }}'
         sequence: !input "Down_HoldRelease"
+
       - conditions: '{{ command_type == "off_press" }}'
         sequence: !input "Hue_Press"
       - conditions: '{{ command_type == "off_double_press" }}'
