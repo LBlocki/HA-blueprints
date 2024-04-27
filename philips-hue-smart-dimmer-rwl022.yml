@@ -10,9 +10,15 @@ blueprint:
         device:
           integration: zha
           model: RWL022
-    Power_Press:
+    Power_Press_On:
+      name: Power Press On
+      description: Power button pressed to on
+      default: []
+      selector:
+        action: {}
+    Power_Press_Off:
       name: Power Press
-      description: Power button pressed
+      description: Power button pressed to off
       default: []
       selector:
         action: {}
@@ -232,8 +238,10 @@ action:
       name: Command
       message: "{{ command_type }}"
   - choose:
-      - conditions: '{{ command_type == "on_press" }}'
-        sequence: !input "Power_Press"
+      - conditions: '{{ command_type == "on_" }}'
+        sequence: !input "Power_Press_On"
+      - conditions: '{{ command_type == "off_with_effect" }}'
+        sequence: !input "Power_Press_Off"
       - conditions: '{{ command_type == "on_double_press" }}'
         sequence: !input "Power_Press2x"
       - conditions: '{{ command_type == "on_triple_press" }}'
