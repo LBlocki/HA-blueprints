@@ -129,6 +129,15 @@ action:
                       entity_id: !input "current_light"
                     data:
                       value: third_light
+                      brightness_pct: >-
+                        {{ states('input_text.defaults_lights_values').split(',')[0] | float
+                        }}
+                      rgb_color: |
+                        [
+                          {{ states('input_text.defaults_lights_values').split(',')[2] | float }},
+                          {{ states('input_text.defaults_lights_values').split(',')[3] | float }},
+                          {{ states('input_text.defaults_lights_values').split(',')[4] | float }}
+                        ]
       - conditions:
           - "{{ command == 'recall' }}"
           - "{{ forth_light != none }}"
