@@ -238,7 +238,7 @@ action:
       name: Command
       message: "{{ command_type }}"
   - choose:
-      - conditions: '{{ command_type == "on_" }}'
+      - conditions: '{{ command_type == "on" }}'
         sequence: !input "Power_Press_On"
       - conditions: '{{ command_type == "off_with_effect" }}'
         sequence: !input "Power_Press_Off"
